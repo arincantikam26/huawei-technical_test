@@ -7,7 +7,7 @@ UPDATE employees
 SET salary = 85
 WHERE position = 'Engineer';
 
--- 3. Total Salary Expenditure in Year 2021
+-- 3. Total Salary in Year 2021
 SELECT SUM(salary) AS total_salary_2021
 FROM employees
 WHERE join_date <= '2021-12-31'
