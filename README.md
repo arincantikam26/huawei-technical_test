@@ -1,20 +1,20 @@
-# EMPLOYEE FORM APPLICATION + AUTOMATION CRON JOB
+# TECHNICAL TEST HUAWEI - SOFTWARE ENGINEER
 
-Project ini dibuat untuk memenuhi tugas technical assessment yang mencakup:
+This project for technical assessment, including : 
 
-- Backend API menggunakan **Node.js + Express**
-- Dokumentasi API menggunakan **Swagger**
-- Frontend Form menggunakan **React JS (Vite)**
-- Automation menggunakan **Cron Job + Node.js Script**
-- Data disimpan sementara menggunakan **in-memory array**
-- Data automation disimpan dalam bentuk file **CSV**
-- Data cleansing otomatis untuk menghapus file lama (**> 30 hari**)
+- Backend API using **Node.js + Express**
+- API Documentation using **Swagger**
+- Frontend Form Application using**React JS (Vite)**
+- Automation using **Cron Job + Node.js Script**
+- Temporary data storage using an **in-memory array**
+- Automation output stored as **CSV**
+- Automatic data cleansing to delete files older than (**> 30 days**)
 
 ---
 
 ## PROJECT STRUCTURE
 
-Project terdiri dari 3 bagian utama:
+The project consists of three main parts:
 
 - Backend (Express + Swagger)
 - Frontend (React + Vite)
@@ -24,7 +24,7 @@ Project terdiri dari 3 bagian utama:
 
 ## BACKEND SETUP (Node.js + Express + Swagger)
 
-Masuk ke folder backend dan jalankan server:
+Navigate to the backend folder and start the server:
 
 ```bash
 cd backend
@@ -32,7 +32,7 @@ npm install
 node server.js
 ```
 
-Backend akan berjalan di:
+Backend will run at:
 
 - API Server:  
   http://localhost:5000
@@ -44,7 +44,7 @@ Backend akan berjalan di:
 
 ## FRONTEND SETUP (React JS + Vite)
 
-Masuk ke folder frontend dan jalankan development server:
+Navigate to the frontend folder and start the development server:
 
 ```bash
 cd frontend
@@ -52,7 +52,7 @@ npm install
 npm run dev
 ```
 
-Frontend akan berjalan di:
+Frontend will run at:
 
 http://localhost:5173
 
@@ -60,17 +60,13 @@ http://localhost:5173
 
 ## AUTOMATION SCRIPT (Cron Job + Node.js)
 
-Automation digunakan untuk:
-
-- Collect data employee dari backend secara otomatis
-- Menyimpan data ke file CSV dengan format tertentu
-- Menghapus file lama lebih dari 30 hari (data cleansing)
+Automation is used to collect employee data automatically, save it into CSV files, and perform data cleansing by deleting files older than 30 days.
 
 ---
 
 ### Install Cron Service (WSL Ubuntu)
 
-Jalankan perintah berikut di WSL Ubuntu:
+Run the following commands in WSL Ubuntu:
 
 ```bash
 sudo apt update
@@ -82,13 +78,7 @@ sudo service cron start
 
 ## CRON SCHEDULING (AUTOMATIC RUNNING)
 
-Untuk menjalankan automation secara otomatis sesuai jadwal:
-
-- 08:00 WIB  
-- 12:00 WIB  
-- 15:00 WIB  
-
-Gunakan cron table dengan langkah berikut:
+To run automation scripts automatically at scheduled times (08:00, 12:00, 15:00 WIB), use the cron table.
 
 ### 1. Edit cron job schedule
 
@@ -96,9 +86,9 @@ Gunakan cron table dengan langkah berikut:
 crontab -e
 ```
 
-### 2. Copy isi jadwal dari file `crontabset.sh`
+### 2. Copy from file `crontabset.sh`
 
-Paste ke dalam editor crontab. Contoh jadwal:
+Paste into crontab editor. Example Schedule:
 
 ```cron
 0 8  * * * node /home/automation/cron_collect.js
@@ -108,9 +98,9 @@ Paste ke dalam editor crontab. Contoh jadwal:
 0 0  * * * node /home/automation/cron_cleaning.js
 ```
 
-### 3. Simpan dan keluar
+### 3. Save and Exit
 
-Cron akan menjalankan script secara otomatis setiap hari sesuai jadwal tersebut.
+Cron will run the scripts automatically every day according to the schedule.
 
 ---
 
@@ -118,11 +108,11 @@ Cron akan menjalankan script secara otomatis setiap hari sesuai jadwal tersebut.
 
 ### 1. Manual Test Collect Script
 
-Pastikan backend sudah running terlebih dahulu:
+Make sure the backend server is running first:
 
 http://localhost:5000
 
-Jalankan script collect secara manual:
+Run the collect script manually:
 
 ```bash
 node automation/cron_collect.js
@@ -132,26 +122,24 @@ node automation/cron_collect.js
 
 ### 2. Manual Test Clean Script (Data Cleansing)
 
-Script cleansing akan menghapus file CSV yang berumur lebih dari **30 hari**.
+The cleansing script deletes CSV files older than 30 days. To test it manually without waiting 30 days, you can create a dummy old file:
 
-Karena file yang baru dibuat belum cukup lama, untuk testing manual tanpa menunggu 30 hari, kamu dapat membuat file dummy lama dengan langkah berikut:
-
-#### a. Buat file dummy di folder output
+#### a. Create a dummy file in the output folder:
 
 ```bash
 touch /home/cron/cron_old_test.csv
 ```
 
-#### b. Ubah timestamp file menjadi 40 hari yang lalu
+#### b. . Change the timestamp to 40 days ago:
 
 ```bash
 touch -d "40 days ago" /home/cron/cron_old_test.csv
 ```
 
-#### c. Jalankan script cleansing manual
+#### c. Run the cleansing script manually:
 
 ```bash
 node automation/cron_clean.js
 ```
 
-Jika berhasil, file dummy tersebut akan otomatis terhapus.
+If successful, the dummy file will be deleted automatically.
